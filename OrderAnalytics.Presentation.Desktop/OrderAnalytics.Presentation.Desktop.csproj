@@ -29,4 +29,9 @@
     <Folder Include="Resources\" />
     <Folder Include="Services\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OrderAnalytics.Application\OrderAnalytics.Application.csproj" />
+    <ProjectReference Include="..\OrderAnalytics.Infrastructure\OrderAnalytics.Infrastructure.csproj" />
+  </ItemGroup>
 </Project>

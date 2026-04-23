@@ -4,6 +4,8 @@ namespace OrderAnalytics.Presentation.Desktop
 	using Avalonia.Controls.ApplicationLifetimes;
 	using Avalonia.Markup.Xaml;
 	using Microsoft.Extensions.DependencyInjection;
+	using OrderAnalytics.Application.Abstractions;
+	using OrderAnalytics.Infrastructure.Services;
 	using OrderAnalytics.Presentation.Desktop.ViewModels;
 	using OrderAnalytics.Presentation.Desktop.Views;
 	using System;
@@ -64,6 +66,9 @@ namespace OrderAnalytics.Presentation.Desktop
 		private static void ConfigureServices(ServiceCollection services)
 		{
 			services.AddTransient<MainWindowViewModel>();
+
+			services.AddSingleton<IOrderImportParser, OrderImportParser>();
+			services.AddSingleton<ICsvImportService, CsvImportService>();
 		}
 
 		#endregion Private Methods
