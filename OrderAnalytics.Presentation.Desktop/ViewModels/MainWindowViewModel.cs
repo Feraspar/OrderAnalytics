@@ -1,7 +1,6 @@
 ﻿namespace OrderAnalytics.Presentation.Desktop.ViewModels
 {
-	public partial class MainWindowViewModel : ViewModelBase
+	public class MainWindowViewModel : ViewModelBase
 	{
-		public string Greeting { get; } = "Welcome to Avalonia!";
 	}
 }

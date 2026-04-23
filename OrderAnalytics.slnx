@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="OrderAnalytics.Application/OrderAnalytics.Application.csproj" />
+  <Project Path="OrderAnalytics.Domain/OrderAnalytics.Domain.csproj" />
+  <Project Path="OrderAnalytics.Infrastructure/OrderAnalytics.Infrastructure.csproj" />
   <Project Path="OrderAnalytics.Presentation.Desktop/OrderAnalytics.Presentation.Desktop.csproj" />
 </Solution>
