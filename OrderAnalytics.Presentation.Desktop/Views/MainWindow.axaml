@@ -9,4 +9,71 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="OrderAnalytics.Presentation.Desktop">
 
+    <Border 
+        CornerRadius="8" 
+        BorderThickness="2" 
+        BorderBrush="{StaticResource _borderBrush}" 
+        Background="{StaticResource _backgroundBrush}" 
+        Margin="24,24,24,39">
+		
+        <Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+				<ColumnDefinition Width="226" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border 
+                Grid.RowSpan="2" 
+                BorderThickness="0,0,1,0" 
+                BorderBrush="{StaticResource _borderBrush}" />
+
+            <Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource _borderBrush}">
+				<TextBlock 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="16,0"
+                    Text="Order Analytics"
+                    FontSize="18"
+                    FontWeight="Medium"/> 
+            </Border>
+
+            <!-- Шторка с навигацией. -->
+            <StackPanel Grid.Row="1" Margin="8,8,8,0" Spacing="4">
+				<Button Classes="navButtonSelected">
+					<StackPanel Orientation="Horizontal" Spacing="10">
+						<Image Source="{StaticResource SelectedImportIcon}" Width="16"/>
+                        <TextBlock 
+                            Classes="navTextSelected" 
+                            Text="Import"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Classes="navButton">
+					<StackPanel Orientation="Horizontal" Spacing="10">
+						<Image Source="{StaticResource OrdersIcon}" Width="16"/>
+                        <TextBlock 
+                            Classes="navText" 
+                            Text="Orders"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Classes="navButton">
+					<StackPanel Orientation="Horizontal" Spacing="10">
+						<Image Source="{StaticResource ErrorIcon}" Width="16"/>
+                        <TextBlock 
+                            Classes="navText" 
+                            Text="Errors"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <!-- Заглушка для контента. -->
+            <Border Grid.Column="1" Grid.RowSpan="2" Background="{StaticResource _contentBackgroundBrush}" />
+        </Grid>
+    </Border>
+
 </Window>
