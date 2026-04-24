@@ -1,0 +1,52 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Стиль для обычной кнопки навигации. -->
+    <Style Selector="Button.navButton">
+        <Setter Property="Theme" Value="{StaticResource _flatButtonStyle}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <!-- Стиль для выбранной кнопки навигации. -->
+    <Style Selector="Button.navButtonSelected">
+        <Setter Property="Theme" Value="{StaticResource _flatButtonStyle}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Background" Value="{StaticResource _navItemSelectedBrush}" />
+    </Style>
+
+    <!-- Стиль для обычной кнопки навигации при наведении. -->
+    <Style Selector="Button.navButton:pointerover">
+		<Setter Property="Background" Value="{StaticResource _navItemSelectedBrush}" />
+    </Style>
+
+    <!-- Стиль для текста на кнопке навигации. -->
+    <Style Selector="TextBlock.navText">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Foreground" Value="{StaticResource _primaryTextBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <!-- Стиль для текста на выбранной кнопке навигации. -->
+    <Style Selector="TextBlock.navTextSelected">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Foreground" Value="{StaticResource _navTextBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+</Styles>

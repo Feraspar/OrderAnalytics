@@ -1,0 +1,30 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  
+    <!-- Белый цвет. -->
+    <Color x:Key="_whiteColor">White</Color>
+
+    <!-- Черный цвет. -->
+    <Color x:Key="_blackColor">Black</Color>
+    
+    <!-- Цвет фона. -->
+    <SolidColorBrush x:Key="_backgroundBrush" Color="{StaticResource _whiteColor}"/>
+
+    <!-- Цвет фона с контентом. -->
+    <SolidColorBrush x:Key="_contentBackgroundBrush">#FAFAFA</SolidColorBrush>
+
+    <!-- Цвет рамки выбранного навигационного окна. -->
+    <SolidColorBrush x:Key="_navItemSelectedBrush">#EFF6FF</SolidColorBrush>
+
+    <!-- Цвет основного текста. -->
+    <SolidColorBrush x:Key="_primaryTextBrush" Color="{StaticResource _blackColor}"/>
+
+    <!-- Цвет второстепенного текста. -->
+    <SolidColorBrush x:Key="_secondaryTextBrush">#737373</SolidColorBrush>
+
+    <!-- Цвет текста на навигационном окне. -->
+    <SolidColorBrush x:Key="_navTextBrush">#0066CC</SolidColorBrush>
+
+    <!-- Цвет рамки. -->
+    <SolidColorBrush x:Key="_borderBrush">#E5E5E5</SolidColorBrush>
+</ResourceDictionary>
