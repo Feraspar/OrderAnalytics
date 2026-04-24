@@ -1,0 +1,21 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  
+    <!-- Иконка секции ошибок в навигационной шторке. -->
+    <Bitmap x:Key="ErrorIcon">avares://OrderAnalytics.Presentation.Desktop/Assets/Icons/error_icon.png</Bitmap>
+
+    <!-- Выделенная иконка секции ошибок в навигационной шторке. -->
+    <Bitmap x:Key="SelectedErrorIcon">avares://OrderAnalytics.Presentation.Desktop/Assets/Icons/selected_error_icon.png</Bitmap>
+
+    <!-- Иконка секции заказов в навигационной шторке. -->
+    <Bitmap x:Key="OrdersIcon">avares://OrderAnalytics.Presentation.Desktop/Assets/Icons/orders_icon.png</Bitmap>
+
+    <!-- Выделенная иконка секции заказов в навигационной шторке. -->
+    <Bitmap x:Key="SelectedOrdersIcon">avares://OrderAnalytics.Presentation.Desktop/Assets/Icons/selected_orders_icon.png</Bitmap>
+
+    <!-- Иконка секции импорта в навигационной шторке. -->
+    <Bitmap x:Key="ImportIcon">avares://OrderAnalytics.Presentation.Desktop/Assets/Icons/import_icon.png</Bitmap>
+
+    <!-- Выделенная иконка секции импорта в навигационной шторке. -->
+    <Bitmap x:Key="SelectedImportIcon">avares://OrderAnalytics.Presentation.Desktop/Assets/Icons/selected_import_icon.png</Bitmap>
+</ResourceDictionary>
