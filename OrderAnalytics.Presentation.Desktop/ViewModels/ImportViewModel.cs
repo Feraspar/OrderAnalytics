@@ -50,6 +50,11 @@
 		public IAsyncRelayCommand ImportFileCommand { get; }
 
 		/// <summary>
+		/// Команда для назначения пути к файлу.
+		/// </summary>
+		public IRelayCommand<string> SetSelectedFileCommand { get; }
+
+		/// <summary>
 		/// Доступна ли кнопка импорта файла.
 		/// </summary>
 		public bool IsBusy
@@ -98,6 +103,7 @@
 
 			ChooseFileCommand = new AsyncRelayCommand(ChooseFileAsync);
 			ImportFileCommand = new AsyncRelayCommand(ImportFileAsync, CanImport);
+			SetSelectedFileCommand = new RelayCommand<string>(SetSelectedFile);
 		}
 
 		#endregion Public Constructors
@@ -157,7 +163,7 @@
 		/// Помечает выбранный файл.
 		/// </summary>
 		/// <param name="filePath">Путь к файлу.</param>
-		public void SetSelectedFile(string filePath)
+		private void SetSelectedFile(string? filePath)
 		{
 			SelectedFilePath = filePath;
 			SummaryText = $"File selected: {Path.GetFileName(filePath)}";

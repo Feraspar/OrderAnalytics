@@ -5,7 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="OrderAnalytics.Presentation.Desktop.ImportView"
-             x:DataType="vm:ImportViewModel">
+             x:DataType="vm:ImportViewModel"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:behaviors="using:OrderAnalytics.Presentation.Desktop.Behaviors">
 
     <Border CornerRadius="8" Background="{StaticResource _contentBackgroundBrush}">
 		<Grid>
@@ -73,11 +75,13 @@
 
                     <!-- Drag & drop зона. -->
                     <Border 
-                        x:Name="DropZone"
                         Grid.ColumnSpan="2"
                         Height="215"
-                        Background="Transparent"
-                        DragDrop.AllowDrop="True">
+                        Background="Transparent">
+
+                        <i:Interaction.Behaviors>
+							<behaviors:FileDragDropBehavior Command="{Binding SetSelectedFileCommand}" />
+                        </i:Interaction.Behaviors>
 
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 							<Image Source="{StaticResource DragDropIcon}" Width="48" />
