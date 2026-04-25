@@ -73,8 +73,10 @@
 
                     <!-- Drag & drop зона. -->
                     <Border 
+                        x:Name="DropZone"
                         Grid.ColumnSpan="2"
                         Height="215"
+                        Background="Transparent"
                         DragDrop.AllowDrop="True">
 
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">

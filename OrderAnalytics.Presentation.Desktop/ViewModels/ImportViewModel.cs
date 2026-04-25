@@ -157,7 +157,7 @@
 		/// Помечает выбранный файл.
 		/// </summary>
 		/// <param name="filePath">Путь к файлу.</param>
-		private void SetSelectedFile(string filePath)
+		public void SetSelectedFile(string filePath)
 		{
 			SelectedFilePath = filePath;
 			SummaryText = $"File selected: {Path.GetFileName(filePath)}";

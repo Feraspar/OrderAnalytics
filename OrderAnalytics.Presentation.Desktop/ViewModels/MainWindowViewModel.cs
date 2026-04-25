@@ -10,7 +10,7 @@
 		/// <summary>
 		/// Поле для хранения текущей модели представления в контроле контента.
 		/// </summary>
-		private ViewModelBase _currentViewModel;
+		private ViewModelBase? _currentViewModel;
 
 		#endregion Private Fields
 
@@ -19,7 +19,7 @@
 		/// <summary>
 		/// Текущая модель представления в контроле контента.
 		/// </summary>
-		public ViewModelBase CurrentViewModel
+		public ViewModelBase? CurrentViewModel
 		{
 			get => _currentViewModel;
 			set => SetProperty(ref _currentViewModel, value);
