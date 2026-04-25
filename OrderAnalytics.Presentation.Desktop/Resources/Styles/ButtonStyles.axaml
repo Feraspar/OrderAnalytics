@@ -28,4 +28,25 @@
             </Setter>
         </ControlTheme>
     </Styles.Resources>
+
+    <!-- Стиль для кнопки приложения. -->
+    <Style Selector="Button.primaryButton">
+		<Setter Property="Theme" Value="{StaticResource _flatButtonStyle}" />
+        <Setter Property="Foreground" Value="{StaticResource _primaryButtonTextBrush}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Padding" Value="13,6,13,10" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Background" Value="{StaticResource _primaryButtonBrush}" />
+    </Style>
+
+    <!-- Стиль для кнопки приложения при наведении. -->
+    <Style Selector="Button.primaryButton:pointerover">
+		<Setter Property="Background" Value="{StaticResource _primaryButtonHoverBrush}" />
+    </Style>
+
+    <!-- Стиль для кнопки приложения при нажатии. -->
+    <Style Selector="Button.primaryButton:pressed">
+		<Setter Property="Background" Value="{StaticResource _primaryButtonPressedBrush}" />
+    </Style>
 </Styles>
