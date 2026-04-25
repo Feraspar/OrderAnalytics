@@ -10,6 +10,12 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="OrderAnalytics.Presentation.Desktop">
 
+    <Window.DataTemplates>
+		<DataTemplate DataType="vm:ImportViewModel">
+			<views:ImportView />
+        </DataTemplate>
+    </Window.DataTemplates>
+
     <Border 
         CornerRadius="8" 
         BorderThickness="2" 
@@ -73,7 +79,7 @@
             </StackPanel>
 
             <!-- Контент. -->
-            <views:ImportView Grid.Column="1" Grid.RowSpan="2"/>
+            <ContentControl Grid.Column="1" Grid.RowSpan="2" Content="{Binding CurrentViewModel}" />
         </Grid>
     </Border>
 

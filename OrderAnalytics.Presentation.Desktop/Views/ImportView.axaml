@@ -1,9 +1,11 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="using:OrderAnalytics.Presentation.Desktop.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="OrderAnalytics.Presentation.Desktop.ImportView">
+             x:Class="OrderAnalytics.Presentation.Desktop.ImportView"
+             x:DataType="vm:ImportViewModel">
 
     <Border CornerRadius="8" Background="{StaticResource _contentBackgroundBrush}">
 		<Grid>
@@ -41,7 +43,8 @@
                         BorderBrush="{StaticResource _borderBrush}">
 
                         <TextBlock 
-                            Text="Demo: Select state" 
+                            Text="{Binding SummaryText}" 
+                            d:Text="Demo: Select state"
                             FontSize="14"
                             Foreground="{StaticResource _secondaryTextBrush}" />
                     </Border>
@@ -100,7 +103,8 @@
                         Classes="primaryButton"
                         Height="40"
                         HorizontalAlignment="Left"
-                        Content="Choose File"/>
+                        Content="Choose File"
+                        Command="{Binding ChooseFileCommand}"/>
 
                     <!-- Кнопка импорта файла. -->
                     <Button 
@@ -109,7 +113,8 @@
                         Classes="primaryButton"
                         Height="40"
                         HorizontalAlignment="Right"
-                        Content="Import File"/>
+                        Content="Import File"
+                        Command="{Binding ImportFileCommand}"/>
                 </Grid>
             </Grid>
         </Grid>

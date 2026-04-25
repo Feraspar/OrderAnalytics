@@ -22,6 +22,9 @@
     <!-- Цвет текста на кнопке. -->
     <SolidColorBrush x:Key="_primaryButtonTextBrush" Color="{StaticResource _whiteColor}"/>
 
+    <!-- Цвет текста на отключенной кнопке. -->
+    <SolidColorBrush x:Key="_primaryButtonDisabledTextBrush">#CFCFCF</SolidColorBrush>
+
     <!-- Цвет второстепенного текста. -->
     <SolidColorBrush x:Key="_secondaryTextBrush">#737373</SolidColorBrush>
 
@@ -39,4 +42,7 @@
 
     <!-- Цвет кнопки приложения при нажатии. -->
     <SolidColorBrush x:Key="_primaryButtonPressedBrush">#004080</SolidColorBrush>
+
+    <!-- Цвет кнопки приложения в отключенном состоянии. -->
+    <SolidColorBrush x:Key="_primaryButtonDisabledBrush">#F8F8F8</SolidColorBrush>
 </ResourceDictionary>
