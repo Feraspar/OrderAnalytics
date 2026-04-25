@@ -18,4 +18,7 @@
 
     <!-- Выделенная иконка секции импорта в навигационной шторке. -->
     <Bitmap x:Key="SelectedImportIcon">avares://OrderAnalytics.Presentation.Desktop/Assets/Icons/selected_import_icon.png</Bitmap>
+
+    <!-- Иконка для области drag & drop. -->
+    <Bitmap x:Key="DragDropIcon">avares://OrderAnalytics.Presentation.Desktop/Assets/Icons/drag_drop_icon.png</Bitmap>
 </ResourceDictionary>

@@ -19,6 +19,9 @@
     <!-- Цвет основного текста. -->
     <SolidColorBrush x:Key="_primaryTextBrush" Color="{StaticResource _blackColor}"/>
 
+    <!-- Цвет текста на кнопке. -->
+    <SolidColorBrush x:Key="_primaryButtonTextBrush" Color="{StaticResource _whiteColor}"/>
+
     <!-- Цвет второстепенного текста. -->
     <SolidColorBrush x:Key="_secondaryTextBrush">#737373</SolidColorBrush>
 
@@ -27,4 +30,13 @@
 
     <!-- Цвет рамки. -->
     <SolidColorBrush x:Key="_borderBrush">#E5E5E5</SolidColorBrush>
+
+    <!-- Цвет кнопки приложения. -->
+    <SolidColorBrush x:Key="_primaryButtonBrush">#0066CC</SolidColorBrush>
+
+    <!-- Цвет кнопки приложения при наведении. -->
+    <SolidColorBrush x:Key="_primaryButtonHoverBrush">#0052A3</SolidColorBrush>
+
+    <!-- Цвет кнопки приложения при нажатии. -->
+    <SolidColorBrush x:Key="_primaryButtonPressedBrush">#004080</SolidColorBrush>
 </ResourceDictionary>
