@@ -67,7 +67,8 @@ namespace OrderAnalytics.Presentation.Desktop
 		/// <param name="services">Коллекция сервисов.</param>
 		private static void ConfigureServices(ServiceCollection services)
 		{
-			services.AddTransient<MainWindowViewModel>();
+			services.AddSingleton<MainWindowViewModel>();
+			services.AddTransient<ImportViewModel>();
 
 			services.AddSingleton<IOrderImportParser, OrderImportParser>();
 			services.AddSingleton<ICsvImportService, CsvImportService>();

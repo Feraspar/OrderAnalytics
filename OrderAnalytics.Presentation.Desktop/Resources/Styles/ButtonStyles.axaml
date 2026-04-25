@@ -49,4 +49,10 @@
     <Style Selector="Button.primaryButton:pressed">
 		<Setter Property="Background" Value="{StaticResource _primaryButtonPressedBrush}" />
     </Style>
+
+    <!-- Стиль для кнопки приложения при нажатии. -->
+    <Style Selector="Button.primaryButton:disabled">
+		<Setter Property="Background" Value="{StaticResource _primaryButtonDisabledBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource _primaryButtonDisabledTextBrush}" />
+    </Style>
 </Styles>
