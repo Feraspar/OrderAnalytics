@@ -1,11 +1,12 @@
 ﻿namespace OrderAnalytics.Presentation.Desktop.ViewModels
 {
+	using CommunityToolkit.Mvvm.ComponentModel;
 	using OrderAnalytics.Presentation.Desktop.Enums;
 
 	/// <summary>
 	/// Модель представления для элемента навигационного меню.
 	/// </summary>
-	public class NavigationItemViewModel : ViewModelBase
+	public class NavigationItemViewModel : ObservableObject
 	{
 		#region Private Fields
 
