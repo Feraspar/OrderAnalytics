@@ -26,10 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\OrderAnalytics.Application\OrderAnalytics.Application.csproj" />
     <ProjectReference Include="..\OrderAnalytics.Infrastructure\OrderAnalytics.Infrastructure.csproj" />
   </ItemGroup>
