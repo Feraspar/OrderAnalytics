@@ -4,11 +4,16 @@
         xmlns:views="using:OrderAnalytics.Presentation.Desktop"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="using:OrderAnalytics.Presentation.Desktop.Converters"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="OrderAnalytics.Presentation.Desktop.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="OrderAnalytics.Presentation.Desktop">
+
+    <Window.Resources>
+		<converters:NavigationIconConverter x:Key="NavigationIconConverter" />
+    </Window.Resources>
 
     <Window.DataTemplates>
 		<DataTemplate DataType="vm:ImportViewModel">
@@ -49,34 +54,41 @@
             </Border>
 
             <!-- Шторка с навигацией. -->
-            <StackPanel Grid.Row="1" Margin="8,8,8,0" Spacing="4">
-				<Button Classes="navButtonSelected">
-					<StackPanel Orientation="Horizontal" Spacing="10">
-						<Image Source="{StaticResource SelectedImportIcon}" Width="16"/>
-                        <TextBlock 
-                            Classes="navTextSelected" 
-                            Text="Import"/>
-                    </StackPanel>
-                </Button>
+            <ItemsControl Grid.Row="1" Margin="8,8,8,0" ItemsSource="{Binding NavigationItems}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Spacing="4" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-                <Button Classes="navButton">
-					<StackPanel Orientation="Horizontal" Spacing="10">
-						<Image Source="{StaticResource OrdersIcon}" Width="16"/>
-                        <TextBlock 
-                            Classes="navText" 
-                            Text="Orders"/>
-                    </StackPanel>
-                </Button>
+                <ItemsControl.ItemTemplate>
+					<DataTemplate x:DataType="vm:NavigationItemViewModel">
+						<Button Classes="navButton" 
+                                Classes.navButtonSelected="{Binding IsSelected}"
+                                Command="{ReflectionBinding $parent[Window].DataContext.NavigateCommand}"
+                                CommandParameter="{Binding Page}">
 
-                <Button Classes="navButton">
-					<StackPanel Orientation="Horizontal" Spacing="10">
-						<Image Source="{StaticResource ErrorIcon}" Width="16"/>
-                        <TextBlock 
-                            Classes="navText" 
-                            Text="Errors"/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
+                            <Grid ColumnDefinitions="16,*"
+                                  ColumnSpacing="10">
+                                <Image Width="16" VerticalAlignment="Center">
+                                    <Image.Source>
+                                        <MultiBinding Converter="{StaticResource NavigationIconConverter}">
+                                            <Binding Path="Page" />
+                                            <Binding Path="IsSelected" />
+                                        </MultiBinding>
+                                    </Image.Source>
+                                </Image>
+
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding Title}"
+                                           Classes.navText="True"
+                                           Classes.navTextSelected="{Binding IsSelected}"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
             <!-- Контент. -->
             <ContentControl Grid.Column="1" Grid.RowSpan="2" Content="{Binding CurrentViewModel}" />
