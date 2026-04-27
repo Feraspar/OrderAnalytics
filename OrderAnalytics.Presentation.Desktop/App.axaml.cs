@@ -68,8 +68,11 @@ namespace OrderAnalytics.Presentation.Desktop
 		private static void ConfigureServices(ServiceCollection services)
 		{
 			services.AddSingleton<MainWindowViewModel>();
-			services.AddTransient<ImportViewModel>();
+			services.AddSingleton<ImportViewModel>();
+			services.AddTransient<OrdersViewModel>();
+			services.AddTransient<ErrorsViewModel>();
 
+			services.AddSingleton<INavigationService, NavigationService>();
 			services.AddSingleton<IOrderImportParser, OrderImportParser>();
 			services.AddSingleton<ICsvImportService, CsvImportService>();
 			services.AddSingleton<IValidationService, ValidationService>();

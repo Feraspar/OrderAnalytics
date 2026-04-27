@@ -19,6 +19,14 @@
 		<DataTemplate DataType="vm:ImportViewModel">
 			<views:ImportView />
         </DataTemplate>
+
+        <DataTemplate DataType="vm:OrdersViewModel">
+			<views:OrdersView />
+        </DataTemplate>
+
+        <DataTemplate DataType="vm:ErrorsViewModel">
+			<views:ErrorsView />
+        </DataTemplate>
     </Window.DataTemplates>
 
     <Border 
