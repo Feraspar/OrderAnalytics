@@ -14,8 +14,8 @@
 	{
 		#region Private Fields
 
-		/// <inheritdoc <see cref="ICsvImportService" />
-		private readonly ICsvImportService _csvImportService;
+		/// <inheritdoc <see cref="IImportFacade" />
+		private readonly IImportFacade _importFacade;
 
 		/// <inheritdoc <see cref="IFilePickerService" />
 		private readonly IFilePickerService _filePickerService;
@@ -94,11 +94,11 @@
 		/// <summary>
 		/// Конструктор класса.
 		/// </summary>
-		/// <param name="csvImportService">Сервис импорта CSV файла.</param>
+		/// <param name="importFacade">Сервис для обработки данных заказов.</param>
 		/// <param name="filePickerService">Сервис выбора файла.</param>
-		public ImportViewModel(ICsvImportService csvImportService, IFilePickerService filePickerService)
+		public ImportViewModel(IImportFacade importFacade, IFilePickerService filePickerService)
 		{
-			_csvImportService = csvImportService;
+			_importFacade = importFacade;
 			_filePickerService = filePickerService;
 
 			ChooseFileCommand = new AsyncRelayCommand(ChooseFileAsync);
@@ -148,11 +148,11 @@
 
 			SummaryText = "Import is in progress...";
 
-			CsvImportResult result = await _csvImportService.ImportAsync(SelectedFilePath);
+			ImportWorkflowResult result = await _importFacade.ImportAsync(SelectedFilePath);
 
-			if (result.Errors.Count > 0)
+			if (result.ImportErrors.Count > 0)
 			{
-				SummaryText = $"Successfully created {result.Orders.Count} orders. Failed rows: {result.Errors.Count}.";
+				SummaryText = $"Successfully created {result.Orders.Count} orders. Failed rows: {result.ImportErrors.Count}.";
 				return;
 			}
 

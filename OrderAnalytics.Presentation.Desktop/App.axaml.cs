@@ -5,6 +5,7 @@ namespace OrderAnalytics.Presentation.Desktop
 	using Avalonia.Markup.Xaml;
 	using Microsoft.Extensions.DependencyInjection;
 	using OrderAnalytics.Application.Abstractions;
+	using OrderAnalytics.Application.Services;
 	using OrderAnalytics.Domain.Services;
 	using OrderAnalytics.Infrastructure.Services;
 	using OrderAnalytics.Presentation.Desktop.Services;
@@ -77,6 +78,8 @@ namespace OrderAnalytics.Presentation.Desktop
 			services.AddSingleton<ICsvImportService, CsvImportService>();
 			services.AddSingleton<IValidationService, ValidationService>();
 			services.AddSingleton<IFilePickerService, FilePickerService>();
+			services.AddSingleton<IImportFacade, ImportFacade>();
+			services.AddSingleton<ImportDataService>();
 		}
 
 		#endregion Private Methods
