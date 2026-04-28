@@ -45,4 +45,32 @@
 
     <!-- Цвет кнопки приложения в отключенном состоянии. -->
     <SolidColorBrush x:Key="_primaryButtonDisabledBrush">#F8F8F8</SolidColorBrush>
+
+    <!-- Цвет текста на бейдже "Completed". -->
+    <SolidColorBrush x:Key="_completedBadgeTextStyle">#16A34A</SolidColorBrush>
+
+    <!-- Цвет текста на бейдже "Processing". -->
+    <SolidColorBrush x:Key="_processingBadgeTextStyle">#0284C7</SolidColorBrush>
+
+    <!-- Цвет текста на бейдже "Pending". -->
+    <SolidColorBrush x:Key="_pendingBadgeTextStyle">#EA580C</SolidColorBrush>
+
+    <!-- Цвет текста на бейдже "Failed". -->
+    <SolidColorBrush x:Key="_errorBadgeTextStyle">#DC2626</SolidColorBrush>
+
+    <!-- Цвет рамки на бейдже "Completed". -->
+    <SolidColorBrush x:Key="_completedBadgeBorderStyle">#F0FDF4</SolidColorBrush>
+
+    <!-- Цвет рамки на бейдже "Processing". -->
+    <SolidColorBrush x:Key="_processingBadgeBorderStyle">#F0F9FF</SolidColorBrush>
+
+    <!-- Цвет рамки на бейдже "Pending". -->
+    <SolidColorBrush x:Key="_pendingBadgeBorderStyle">#FFF7ED</SolidColorBrush>
+
+    <!-- Цвет проблемной строки в таблице. -->
+    <SolidColorBrush x:Key="_problematicBorderStyle">#FEF2F2</SolidColorBrush>
+
+    <!-- Цвет выделенной строки в таблице. -->
+    <SolidColorBrush x:Key="_selectedcBorderStyle">#EFF6FF</SolidColorBrush>
+
 </ResourceDictionary>

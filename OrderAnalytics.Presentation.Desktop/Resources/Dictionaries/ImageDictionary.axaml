@@ -21,4 +21,7 @@
 
     <!-- Иконка для области drag & drop. -->
     <Bitmap x:Key="DragDropIcon">avares://OrderAnalytics.Presentation.Desktop/Assets/Icons/drag_drop_icon.png</Bitmap>
+
+    <!-- Иконка проблемного заказа. -->
+    <Bitmap x:Key="ProblematicIcon">avares://OrderAnalytics.Presentation.Desktop/Assets/Icons/problematic_icon.png</Bitmap>
 </ResourceDictionary>
