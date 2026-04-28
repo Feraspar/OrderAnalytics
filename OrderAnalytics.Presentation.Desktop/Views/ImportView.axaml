@@ -9,120 +9,100 @@
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:behaviors="using:OrderAnalytics.Presentation.Desktop.Behaviors">
 
-    <Border CornerRadius="8" Background="{StaticResource _contentBackgroundBrush}">
-		<Grid>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="60" />
+    <Grid>
+        <Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+		<Border Padding="24">
+
+            <!-- Индикаторы состояния. -->
+			<Border 
+                BorderThickness="1" 
+                CornerRadius="6"
+                Height="94"
+                Padding="17"
+                VerticalAlignment="Top"
+                BorderBrush="{StaticResource _borderBrush}">
+
+                <TextBlock 
+                    Text="{Binding SummaryText}" 
+                    d:Text="Demo: Select state"
+                    FontSize="14"
+                    Foreground="{StaticResource _secondaryTextBrush}" />
+            </Border>
+        </Border>
+
+        <Grid Grid.Row="1" VerticalAlignment="Top" MaxWidth="672" RowSpacing="24">
+            <Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!-- Шапка. -->
-            <Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource _borderBrush}">
-				<TextBlock 
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Margin="16,0"
-                    Text="Import"
-                    FontSize="20"
-                    FontWeight="Medium"/> 
+            <Rectangle
+                Grid.ColumnSpan="2"
+                    RadiusX="12"
+                    Height="215"
+                    RadiusY="12"
+                    Stroke="{StaticResource _borderBrush}"
+                    StrokeThickness="2"
+                    StrokeDashArray="2,2"
+                    Fill="Transparent" />
+
+            <!-- Drag & drop зона. -->
+            <Border 
+                Grid.ColumnSpan="2"
+                Height="215"
+                Background="Transparent">
+
+                <i:Interaction.Behaviors>
+					<behaviors:FileDragDropBehavior Command="{Binding SetSelectedFileCommand}" />
+                </i:Interaction.Behaviors>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+					<Image Source="{StaticResource DragDropIcon}" Width="48" />
+
+                    <TextBlock
+                        Margin="0,16,0,0"
+                        HorizontalAlignment="Center"
+                        Foreground="{StaticResource _primaryTextBrush}"
+                        Text="Drag &amp; drop file here" 
+                        FontSize="18"
+                        FontWeight="Medium"/>
+
+                    <TextBlock 
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Center"
+                        Text="or"
+                        FontSize="14"
+                        Foreground="{StaticResource _secondaryTextBrush}"/>
+                </StackPanel>
             </Border>
 
-            <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+            <!-- Кнопка выбора файла. -->
+            <Button 
+                Grid.Row="1"
+                Classes="primaryButton"
+                Height="40"
+                HorizontalAlignment="Left"
+                Content="Choose File"
+                Command="{Binding ChooseFileCommand}"/>
 
-				<Border Padding="24">
-
-                    <!-- Индикаторы состояния. -->
-				    <Border 
-                        BorderThickness="1" 
-                        CornerRadius="6"
-                        Height="94"
-                        Padding="17"
-                        VerticalAlignment="Top"
-                        BorderBrush="{StaticResource _borderBrush}">
-
-                        <TextBlock 
-                            Text="{Binding SummaryText}" 
-                            d:Text="Demo: Select state"
-                            FontSize="14"
-                            Foreground="{StaticResource _secondaryTextBrush}" />
-                    </Border>
-                </Border>
-
-                <Grid Grid.Row="1" VerticalAlignment="Top" MaxWidth="672" RowSpacing="24">
-                    <Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                     <Grid.RowDefinitions>
-					    <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <Rectangle
-                        Grid.ColumnSpan="2"
-                            RadiusX="12"
-                            Height="215"
-                            RadiusY="12"
-                            Stroke="{StaticResource _borderBrush}"
-                            StrokeThickness="2"
-                            StrokeDashArray="2,2"
-                            Fill="Transparent" />
-
-                    <!-- Drag & drop зона. -->
-                    <Border 
-                        Grid.ColumnSpan="2"
-                        Height="215"
-                        Background="Transparent">
-
-                        <i:Interaction.Behaviors>
-							<behaviors:FileDragDropBehavior Command="{Binding SetSelectedFileCommand}" />
-                        </i:Interaction.Behaviors>
-
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-							<Image Source="{StaticResource DragDropIcon}" Width="48" />
-
-                            <TextBlock
-                                Margin="0,16,0,0"
-                                HorizontalAlignment="Center"
-                                Foreground="{StaticResource _primaryTextBrush}"
-                                Text="Drag &amp; drop file here" 
-                                FontSize="18"
-                                FontWeight="Medium"/>
-
-                            <TextBlock 
-                                Margin="0,10,0,0"
-                                HorizontalAlignment="Center"
-                                Text="or"
-                                FontSize="14"
-                                Foreground="{StaticResource _secondaryTextBrush}"/>
-                        </StackPanel>
-                    </Border>
-
-                    <!-- Кнопка выбора файла. -->
-                    <Button 
-                        Grid.Row="1"
-                        Classes="primaryButton"
-                        Height="40"
-                        HorizontalAlignment="Left"
-                        Content="Choose File"
-                        Command="{Binding ChooseFileCommand}"/>
-
-                    <!-- Кнопка импорта файла. -->
-                    <Button 
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Classes="primaryButton"
-                        Height="40"
-                        HorizontalAlignment="Right"
-                        Content="Import File"
-                        Command="{Binding ImportFileCommand}"/>
-                </Grid>
-            </Grid>
+            <!-- Кнопка импорта файла. -->
+            <Button 
+                Grid.Row="1"
+                Grid.Column="1"
+                Classes="primaryButton"
+                Height="40"
+                HorizontalAlignment="Right"
+                Content="Import File"
+                Command="{Binding ImportFileCommand}"/>
         </Grid>
-    </Border>
+    </Grid>
 </UserControl>

@@ -3,7 +3,6 @@
 	using CommunityToolkit.Mvvm.Input;
 	using OrderAnalytics.Presentation.Desktop.Enums;
 	using OrderAnalytics.Presentation.Desktop.Services;
-	using System;
 	using System.Collections.ObjectModel;
 
 	/// <summary>
@@ -17,27 +16,18 @@
 		private readonly INavigationService _navigationService;
 
 		/// <summary>
-		/// Поле для хранения текущей модели представления в контроле контента.
-		/// </summary>
-		private ViewModelBase? _currentViewModel;
-
-		/// <summary>
 		/// Поле для хранения типа текущей страницы.
 		/// </summary>
 		private AppPage _currentPage;
 
+		/// <summary>
+		/// Поле для хранения текущей модели представления в контроле контента.
+		/// </summary>
+		private ViewModelBase? _currentViewModel;
+
 		#endregion Private Fields
 
 		#region Public Properties
-
-		/// <summary>
-		/// Текущая модель представления в контроле контента.
-		/// </summary>
-		public ViewModelBase? CurrentViewModel
-		{
-			get => _currentViewModel;
-			set => SetProperty(ref _currentViewModel, value);
-		}
 
 		/// <summary>
 		/// Тип текущей страницы.
@@ -49,14 +39,34 @@
 		}
 
 		/// <summary>
-		/// Коллекция элементов меню навигации.
+		/// Заголовок выбранной страницы.
 		/// </summary>
-		public ObservableCollection<NavigationItemViewModel> NavigationItems { get; }
+		public string CurrentPageTitle => CurrentPage switch
+		{
+			AppPage.ImportPage => "Import",
+			AppPage.OrdersPage => "Orders",
+			AppPage.ErrorsPage => "Errors",
+			_ => string.Empty
+		};
+
+		/// <summary>
+		/// Текущая модель представления в контроле контента.
+		/// </summary>
+		public ViewModelBase? CurrentViewModel
+		{
+			get => _currentViewModel;
+			set => SetProperty(ref _currentViewModel, value);
+		}
 
 		/// <summary>
 		/// Команды для навигации.
 		/// </summary>
 		public IRelayCommand<AppPage> NavigateCommand { get; }
+
+		/// <summary>
+		/// Коллекция элементов меню навигации.
+		/// </summary>
+		public ObservableCollection<NavigationItemViewModel> NavigationItems { get; }
 
 		#endregion Public Properties
 
@@ -72,10 +82,10 @@
 			CurrentPage = _navigationService.CurrentPage;
 			CurrentViewModel = _navigationService.CurrentViewModel;
 
-			NavigationItems = 
+			NavigationItems =
 			[
-				new NavigationItemViewModel("Import", AppPage.ImportPage), 
-				new NavigationItemViewModel("Orders", AppPage.OrdersPage), 
+				new NavigationItemViewModel("Import", AppPage.ImportPage),
+				new NavigationItemViewModel("Orders", AppPage.OrdersPage),
 				new NavigationItemViewModel("Errors", AppPage.ErrorsPage)
 			];
 
@@ -86,17 +96,9 @@
 			_navigationService.Navigated += OnNavigated;
 		}
 
-		/// <summary>
-		/// Изменяет текущую страницу.
-		/// </summary>
-		private void OnNavigated()
-		{
-			CurrentPage = _navigationService.CurrentPage;
-			CurrentViewModel = _navigationService.CurrentViewModel;
-			UpdateSelection();
-		}
-
 		#endregion Public Constructors
+
+		#region Private Methods
 
 		/// <summary>
 		/// Навигирует на выбранную страницу.
@@ -105,6 +107,18 @@
 		private void Navigate(AppPage page)
 		{
 			_navigationService.NavigateTo(page);
+		}
+
+		/// <summary>
+		/// Изменяет текущую страницу.
+		/// </summary>
+		private void OnNavigated()
+		{
+			CurrentPage = _navigationService.CurrentPage;
+			CurrentViewModel = _navigationService.CurrentViewModel;
+			OnPropertyChanged(nameof(CurrentPageTitle));
+
+			UpdateSelection();
 		}
 
 		/// <summary>
@@ -117,5 +131,7 @@
 				item.IsSelected = item.Page == CurrentPage;
 			}
 		}
+
+		#endregion Private Methods
 	}
 }

@@ -1,0 +1,42 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Стиль для выпадающего списка. -->
+    <Style Selector="ComboBox.filterComboBox">
+        <Setter Property="MinHeight" Value="40" />
+        <Setter Property="BorderBrush" Value="{StaticResource _borderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Padding" Value="12,0" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+
+    <!-- Стиль для выпадающего списка при фокусе. -->
+    <Style Selector="ComboBox.filterComboBox:focus">
+        <Setter Property="BorderBrush" Value="{StaticResource _focusBackgroundBorderBrush}" />
+    </Style>
+
+    <!-- Стиль для выпадающего списка при взаимодействии. -->
+    <Style Selector="ComboBox.filterComboBox:dropdownopen">
+        <Setter Property="BorderBrush" Value="{StaticResource _focusBackgroundBorderBrush}" />
+    </Style>
+
+    <!-- Стиль для элемента ввода текста. -->
+    <Style Selector="TextBox.searchTextBox">
+        <Setter Property="Height" Value="42" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="{StaticResource _borderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Padding" Value="42,0,12,0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Foreground" Value="{StaticResource _primaryTextBrush}" />
+    </Style>
+
+     <!-- Стиль для элемента ввода текста при фокусе. -->
+    <Style Selector="TextBox.searchTextBox:focus">
+        <Setter Property="BorderBrush" Value="{StaticResource _focusBackgroundBorderBrush}" />
+    </Style>
+</Styles>

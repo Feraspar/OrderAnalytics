@@ -104,7 +104,7 @@
 			{
 				order.IsProblematic = true;
 
-				AddError(order, errors, nameof(order.Region), $"Unknown status: {order.Region}", ErrorSeverity.Error);
+				AddError(order, errors, nameof(order.Region), $"Unknown region: {order.Region}", ErrorSeverity.Error);
 			}
 		}
 

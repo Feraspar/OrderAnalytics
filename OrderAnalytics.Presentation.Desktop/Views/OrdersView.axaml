@@ -1,16 +1,228 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:OrderAnalytics.Presentation.Desktop.ViewModels"
+             xmlns:enums="using:OrderAnalytics.Presentation.Desktop.Enums"
+             xmlns:converters="using:OrderAnalytics.Presentation.Desktop.Converters"
+             xmlns:controls="using:OrderAnalytics.Presentation.Desktop"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-              x:DataType="vm:OrdersViewModel"
+             x:DataType="vm:OrdersViewModel"
              x:Class="OrderAnalytics.Presentation.Desktop.OrdersView">
 
-    <Grid>
-        <TextBlock Text="Orders page"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="24"/>
+    <UserControl.Resources>
+		<converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+    </UserControl.Resources>
+
+    <Grid Margin="24,24,24,9">
+
+        <!-- Основной контент -->
+        <Grid RowSpacing="16">
+            <Grid.RowDefinitions>
+			    <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+			<Grid ColumnDefinitions="2.2*,*,*,*,*,3*"
+              ColumnSpacing="12">
+
+            <Grid>
+
+                <!-- Строка поиска. -->
+                <TextBox
+                    Classes="searchTextBox"
+                    PlaceholderText="Search orders..." 
+                    Text="{Binding SearchOrderId, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Image
+                    Source="{StaticResource SearchIcon}"
+                    Width="16"
+                    Margin="14,0,0,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    IsHitTestVisible="False" />
+            </Grid>
+
+            <!-- Фильтр по менеджерам. -->
+            <ComboBox Classes="filterComboBox" 
+                      Grid.Column="1"
+                      Height="42"
+                      HorizontalAlignment="Stretch" 
+                      ItemsSource="{Binding Managers}"
+                      SelectedItem="{Binding SelectedManager}"/>
+
+            <!-- Фильтр по регионам. -->
+            <ComboBox Classes="filterComboBox" 
+                      Grid.Column="2"
+                      Height="42"
+                      HorizontalAlignment="Stretch" 
+                      ItemsSource="{Binding Regions}"
+                      SelectedItem="{Binding SelectedRegion}"/>
+
+            <!-- Фильтр по статусам. -->
+            <ComboBox Classes="filterComboBox" 
+                      Grid.Column="3"
+                      Height="42"
+                      HorizontalAlignment="Stretch" 
+                      ItemsSource="{Binding Statuses}"
+                      SelectedItem="{Binding SelectedStatus}"/>
+
+            <!-- Фильтр по проблемным проектам. -->
+            <Border Grid.Column="4" 
+                    Background="{StaticResource _checkBoxBorderBrush}" 
+                    CornerRadius="6"
+                    Padding="11"
+                    Height="42">
+                <CheckBox Content="Only problematic" 
+                          FontSize="14" 
+                          FontWeight="Medium"
+                          Foreground="{StaticResource _primaryTextBrush}"
+                          IsChecked="{Binding IsOnlyProblematic}"/>
+            </Border>
+        </Grid>
+
+		<Grid Grid.Row="1" IsVisible="{Binding HasOrders}">
+            <Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Шапка таблицы заказов. -->
+            <Border BorderBrush="{StaticResource _borderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="6,6,0,0"
+                    Background="White">
+                <Border BorderBrush="Black"
+                        BorderThickness="0,0,0,1">
+				    <Grid ColumnDefinitions="1.2*,1.2*,1.5*,1*,1.3*,0.8*,1.2*,0.9*"
+                            Height="42"
+                            Margin="16,0">
+                        <Button Classes="orderHeaderButton" 
+                                Content="Order ID" 
+                                Command="{Binding SortCommand}"
+                                CommandParameter="{x:Static enums:OrdersSortField.OrderId}"/>
+                        <Button Grid.Column="1" 
+                                Classes="orderHeaderButton" 
+                                Content="Date" 
+                                Command="{Binding SortCommand}"
+                                CommandParameter="{x:Static enums:OrdersSortField.CreatedAt}"/>
+                        <Button Grid.Column="2" 
+                                Classes="orderHeaderButton" 
+                                Content="Manager" 
+                                Command="{Binding SortCommand}"
+                                CommandParameter="{x:Static enums:OrdersSortField.Manager}"/>
+                        <Button Grid.Column="3" 
+                                Classes="orderHeaderButton" 
+                                Content="Region" 
+                                Command="{Binding SortCommand}"
+                                CommandParameter="{x:Static enums:OrdersSortField.Region}"/>
+                        <Button Grid.Column="4" 
+                                Classes="orderHeaderButton" 
+                                Content="Status" 
+                                Command="{Binding SortCommand}"
+                                CommandParameter="{x:Static enums:OrdersSortField.Status}"/>
+                        <Button Grid.Column="5" 
+                                Classes="orderHeaderButton" 
+                                Content="Items" 
+                                Command="{Binding SortCommand}"
+                                CommandParameter="{x:Static enums:OrdersSortField.Quantity}"/>
+                        <Button Grid.Column="6" 
+                                Classes="orderHeaderButton" 
+                                Content="Net Amount" 
+                                Command="{Binding SortCommand}"
+                                CommandParameter="{x:Static enums:OrdersSortField.NetAmount}"/>
+                        <Button Grid.Column="7" 
+                                Classes="orderHeaderButton" 
+                                Content="Flag"/>
+                    </Grid>
+                </Border>
+            </Border>
+
+            <!-- Строки таблицы заказов. -->
+            <Border Grid.Row="1"
+                    BorderBrush="{StaticResource _borderBrush}"
+                    BorderThickness="1,0,1,1"
+                    CornerRadius="0,0,6,6"
+                    Background="White">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListBox Classes="ordersList"
+                             ItemsSource="{Binding Orders}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="vm:OrderRowViewModel">
+                                <Border Classes="orderRow"
+                                        Classes.problematic="{Binding IsProblematic}">
+                                    <Grid ColumnDefinitions="1.2*,1.2*,1.5*,1*,1.3*,0.8*,1.2*,0.9*">
+
+                                        <TextBlock Classes="orderCellText orderIdCellText"
+                                                   Text="{Binding OrderId}" />
+
+                                        <TextBlock Grid.Column="1"
+                                                   Classes="orderCellText"
+                                                   Text="{Binding CreatedAt, StringFormat='{}{0:yyyy-MM-dd}'}" />
+
+                                        <TextBlock Grid.Column="2"
+                                                   Classes="orderCellText"
+                                                   Text="{Binding Manager}" />
+
+                                        <TextBlock Grid.Column="3"
+                                                   Classes="orderCellText"
+                                                   Text="{Binding Region}" />
+
+                                        <Border Grid.Column="4"
+                                                Classes="statusBadge"
+                                                Classes.completed="{Binding IsCompleted}"
+                                                Classes.processing="{Binding IsProcessing}"
+                                                Classes.pending="{Binding IsPending}"
+                                                Classes.failed="{Binding IsFailed}">
+                                            <TextBlock Classes="statusText"
+                                                       Classes.completed="{Binding IsCompleted}"
+                                                       Classes.processing="{Binding IsProcessing}"
+                                                       Classes.pending="{Binding IsPending}"
+                                                       Classes.failed="{Binding IsFailed}"
+                                                       Text="{Binding Status}" />
+                                        </Border>
+
+                                        <TextBlock Grid.Column="5"
+                                                   Classes="orderCellText"
+                                                   Text="{Binding Quantity}" />
+
+                                        <TextBlock Grid.Column="6"
+                                                   Classes="orderCellText"
+                                                   Text="{Binding NetAmount, StringFormat='{}{0:C}'}" />
+
+                                        <Image Grid.Column="7"
+                                               Source="{StaticResource ProblematicIcon}"
+                                               Height="16"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               IsVisible="{Binding IsProblematic}" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                </Border>
+        </Grid>
+
+         <!-- Нет данных. -->
+         <Grid Grid.Row="1">
+		    <controls:EmptyStateView VerticalAlignment="Top" IsVisible="{Binding HasOrders, Converter={StaticResource InverseBooleanConverter}}"/>
+         </Grid>
+
+        <!-- Количество отображаемых заказов. -->
+        <TextBlock Grid.Row="2"
+                   Height="20"
+                   HorizontalAlignment="Left"
+                   FontSize="14"
+                   Foreground="{StaticResource _secondaryTextBrush}">
+			    <TextBlock.Text>
+				    <MultiBinding StringFormat="Showing {0} of {1} orders">
+					    <Binding Path="VisibleOrdersCount" />
+                        <Binding Path="TotalOrdersCount" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </Grid>
     </Grid>
 </UserControl>

@@ -98,8 +98,22 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
+            <!-- Шапка. -->
+            <Border Grid.Column="1" 
+                    BorderThickness="0,0,0,1" 
+                    BorderBrush="{StaticResource _borderBrush}">
+
+				<TextBlock HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Margin="16,0"
+                           Text="{Binding CurrentPageTitle}"
+                           FontSize="20"
+                           FontWeight="Medium"/> 
+            </Border>
+
+
             <!-- Контент. -->
-            <ContentControl Grid.Column="1" Grid.RowSpan="2" Content="{Binding CurrentViewModel}" />
+            <ContentControl Grid.Column="1" Grid.Row="1" Content="{Binding CurrentViewModel}" Background="{StaticResource _contentBackgroundBrush}"/>
         </Grid>
     </Border>
 
