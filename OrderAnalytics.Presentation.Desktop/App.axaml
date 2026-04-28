@@ -15,8 +15,10 @@
 
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
 
         <StyleInclude Source="avares://OrderAnalytics.Presentation.Desktop/Resources/Styles/ButtonStyles.axaml" />
         <StyleInclude Source="avares://OrderAnalytics.Presentation.Desktop/Resources/Styles/NavigationStyles.axaml" />
+        <StyleInclude Source="avares://OrderAnalytics.Presentation.Desktop/Resources/Styles/TableRowsStyles.axaml" />
     </Application.Styles>
 </Application>

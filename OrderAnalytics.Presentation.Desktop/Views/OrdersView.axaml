@@ -1,16 +1,126 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:OrderAnalytics.Presentation.Desktop.ViewModels"
+             xmlns:converters="using:OrderAnalytics.Presentation.Desktop.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-              x:DataType="vm:OrdersViewModel"
+             x:DataType="vm:OrdersViewModel"
              x:Class="OrderAnalytics.Presentation.Desktop.OrdersView">
 
-    <Grid>
-        <TextBlock Text="�����"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="24"/>
+    <Grid Margin="24,24,24,9" RowSpacing="16">
+        <Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+		<Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Шапка. -->
+            <Border BorderBrush="{StaticResource _borderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="6,6,0,0"
+                    Background="White">
+                <Border BorderBrush="Black"
+                        BorderThickness="0,0,0,1">
+				    <Grid ColumnDefinitions="1.2*,1.2*,1.5*,1*,1.3*,0.8*,1.2*,0.9*"
+                            Height="42"
+                            Margin="16,0">
+                        <TextBlock Classes="orderHeaderText" Text="Order ID" />
+                        <TextBlock Grid.Column="1" Classes="orderHeaderText" Text="Date" />
+                        <TextBlock Grid.Column="2" Classes="orderHeaderText" Text="Manager" />
+                        <TextBlock Grid.Column="3" Classes="orderHeaderText" Text="Region" />
+                        <TextBlock Grid.Column="4" Classes="orderHeaderText" Text="Status" />
+                        <TextBlock Grid.Column="5" Classes="orderHeaderText" Text="Items" />
+                        <TextBlock Grid.Column="6" Classes="orderHeaderText" Text="Net Amount" />
+                        <TextBlock Grid.Column="7" Classes="orderHeaderText" Text="Flag" />
+                    </Grid>
+                </Border>
+            </Border>
+
+            <!-- Строки. -->
+            <Border Grid.Row="1"
+                    BorderBrush="{StaticResource _borderBrush}"
+                    BorderThickness="1,0,1,1"
+                    CornerRadius="0,0,6,6"
+                    Background="White">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListBox Classes="ordersList"
+                             ItemsSource="{Binding Orders}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="vm:OrderRowViewModel">
+                                <Border Classes="orderRow"
+                                        Classes.problematic="{Binding IsProblematic}">
+                                    <Grid ColumnDefinitions="1.2*,1.2*,1.5*,1*,1.3*,0.8*,1.2*,0.9*">
+
+                                        <TextBlock Classes="orderCellText orderIdCellText"
+                                                   Text="{Binding OrderId}" />
+
+                                        <TextBlock Grid.Column="1"
+                                                   Classes="orderCellText"
+                                                   Text="{Binding CreatedAt, StringFormat='{}{0:yyyy-MM-dd}'}" />
+
+                                        <TextBlock Grid.Column="2"
+                                                   Classes="orderCellText"
+                                                   Text="{Binding Manager}" />
+
+                                        <TextBlock Grid.Column="3"
+                                                   Classes="orderCellText"
+                                                   Text="{Binding Region}" />
+
+                                        <Border Grid.Column="4"
+                                                Classes="statusBadge"
+                                                Classes.completed="{Binding IsCompleted}"
+                                                Classes.processing="{Binding IsProcessing}"
+                                                Classes.pending="{Binding IsPending}"
+                                                Classes.failed="{Binding IsFailed}">
+                                            <TextBlock Classes="statusText"
+                                                       Classes.completed="{Binding IsCompleted}"
+                                                       Classes.processing="{Binding IsProcessing}"
+                                                       Classes.pending="{Binding IsPending}"
+                                                       Classes.failed="{Binding IsFailed}"
+                                                       Text="{Binding Status}" />
+                                        </Border>
+
+                                        <TextBlock Grid.Column="5"
+                                                   Classes="orderCellText"
+                                                   Text="{Binding Quantity}" />
+
+                                        <TextBlock Grid.Column="6"
+                                                   Classes="orderCellText"
+                                                   Text="{Binding NetAmount, StringFormat='{}{0:C}'}" />
+
+                                        <Image Grid.Column="7"
+                                               Source="{StaticResource ProblematicIcon}"
+                                               Height="16"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               IsVisible="{Binding IsProblematic}" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                </Border>
+        </Grid>
+
+        <TextBlock Grid.Row="2"
+                   Height="20"
+                   HorizontalAlignment="Left"
+                   FontSize="14"
+                   Foreground="{StaticResource _secondaryTextBrush}">
+				<TextBlock.Text>
+					<MultiBinding StringFormat="Showing {0} of {1} orders">
+						<Binding Path="VisibleOrdersCount" />
+                        <Binding Path="TotalOrdersCount" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
     </Grid>
 </UserControl>
