@@ -87,6 +87,11 @@
 		}
 
 		/// <summary>
+		/// Есть ли заказы в коллекции.
+		/// </summary>
+		public bool HasOrders => Orders.Count > 0;
+
+		/// <summary>
 		/// Выбран ли фильтр только проблемных заказов.
 		/// </summary>
 		public bool IsOnlyProblematic
@@ -283,6 +288,8 @@
 			query = ApplySorting(query);
 
 			Orders = new ObservableCollection<OrderRowViewModel>(query);
+
+			OnPropertyChanged(nameof(HasOrders));
 
 			VisibleOrdersCount = Orders.Count.ToString();
 		}

@@ -27,4 +27,7 @@
 
     <!-- Иконка поиска. -->
     <Bitmap x:Key="SearchIcon">avares://OrderAnalytics.Presentation.Desktop/Assets/Icons/search_icon.png</Bitmap>
+
+    <!-- Иконка для пустого состояния. -->
+    <Bitmap x:Key="WarningEmptyIcon">avares://OrderAnalytics.Presentation.Desktop/Assets/Icons/warning_empty_icon.png</Bitmap>
 </ResourceDictionary>

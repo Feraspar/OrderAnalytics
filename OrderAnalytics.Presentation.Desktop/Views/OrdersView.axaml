@@ -5,18 +5,25 @@
              xmlns:vm="using:OrderAnalytics.Presentation.Desktop.ViewModels"
              xmlns:enums="using:OrderAnalytics.Presentation.Desktop.Enums"
              xmlns:converters="using:OrderAnalytics.Presentation.Desktop.Converters"
+             xmlns:controls="using:OrderAnalytics.Presentation.Desktop"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:OrdersViewModel"
              x:Class="OrderAnalytics.Presentation.Desktop.OrdersView">
 
-    <Grid Margin="24,24,24,9" RowSpacing="16">
-        <Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <UserControl.Resources>
+		<converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+    </UserControl.Resources>
 
-        <Grid ColumnDefinitions="2.2*,*,*,*,*,3*"
+    <Grid Margin="24,24,24,9">
+
+        <!-- Основной контент -->
+        <Grid RowSpacing="16">
+            <Grid.RowDefinitions>
+			    <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+			<Grid ColumnDefinitions="2.2*,*,*,*,*,3*"
               ColumnSpacing="12">
 
             <Grid>
@@ -74,7 +81,7 @@
             </Border>
         </Grid>
 
-		<Grid Grid.Row="1">
+		<Grid Grid.Row="1" IsVisible="{Binding HasOrders}">
             <Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -198,18 +205,24 @@
                 </Border>
         </Grid>
 
+         <!-- Нет данных. -->
+         <Grid Grid.Row="1">
+		    <controls:EmptyStateView VerticalAlignment="Top" IsVisible="{Binding HasOrders, Converter={StaticResource InverseBooleanConverter}}"/>
+         </Grid>
+
         <!-- Количество отображаемых заказов. -->
         <TextBlock Grid.Row="2"
                    Height="20"
                    HorizontalAlignment="Left"
                    FontSize="14"
                    Foreground="{StaticResource _secondaryTextBrush}">
-			<TextBlock.Text>
-				<MultiBinding StringFormat="Showing {0} of {1} orders">
-					<Binding Path="VisibleOrdersCount" />
-                    <Binding Path="TotalOrdersCount" />
-                </MultiBinding>
-            </TextBlock.Text>
-        </TextBlock>
+			    <TextBlock.Text>
+				    <MultiBinding StringFormat="Showing {0} of {1} orders">
+					    <Binding Path="VisibleOrdersCount" />
+                        <Binding Path="TotalOrdersCount" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </Grid>
     </Grid>
 </UserControl>
