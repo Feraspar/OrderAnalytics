@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:OrderAnalytics.Presentation.Desktop.ViewModels"
+             xmlns:enums="using:OrderAnalytics.Presentation.Desktop.Enums"
              xmlns:converters="using:OrderAnalytics.Presentation.Desktop.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:OrdersViewModel"
@@ -19,6 +20,8 @@
               ColumnSpacing="12">
 
             <Grid>
+
+                <!-- Строка поиска. -->
                 <TextBox
                     Classes="searchTextBox"
                     PlaceholderText="Search orders..." 
@@ -33,13 +36,15 @@
                     IsHitTestVisible="False" />
             </Grid>
 
+            <!-- Фильтр по менеджерам. -->
             <ComboBox Classes="filterComboBox" 
                       Grid.Column="1"
                       Height="42"
                       HorizontalAlignment="Stretch" 
-                      ItemsSource="{Binding Statuses}"
-                      SelectedItem="{Binding SelectedStatus}"/>
+                      ItemsSource="{Binding Managers}"
+                      SelectedItem="{Binding SelectedManager}"/>
 
+            <!-- Фильтр по регионам. -->
             <ComboBox Classes="filterComboBox" 
                       Grid.Column="2"
                       Height="42"
@@ -47,13 +52,15 @@
                       ItemsSource="{Binding Regions}"
                       SelectedItem="{Binding SelectedRegion}"/>
 
+            <!-- Фильтр по статусам. -->
             <ComboBox Classes="filterComboBox" 
                       Grid.Column="3"
                       Height="42"
                       HorizontalAlignment="Stretch" 
-                      ItemsSource="{Binding Managers}"
-                      SelectedItem="{Binding SelectedManager}"/>
+                      ItemsSource="{Binding Statuses}"
+                      SelectedItem="{Binding SelectedStatus}"/>
 
+            <!-- Фильтр по проблемным проектам. -->
             <Border Grid.Column="4" 
                     Background="{StaticResource _checkBoxBorderBrush}" 
                     CornerRadius="6"
@@ -73,7 +80,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!-- Шапка. -->
+            <!-- Шапка таблицы заказов. -->
             <Border BorderBrush="{StaticResource _borderBrush}"
                     BorderThickness="1"
                     CornerRadius="6,6,0,0"
@@ -83,19 +90,48 @@
 				    <Grid ColumnDefinitions="1.2*,1.2*,1.5*,1*,1.3*,0.8*,1.2*,0.9*"
                             Height="42"
                             Margin="16,0">
-                        <TextBlock Classes="orderHeaderText" Text="Order ID" />
-                        <TextBlock Grid.Column="1" Classes="orderHeaderText" Text="Date" />
-                        <TextBlock Grid.Column="2" Classes="orderHeaderText" Text="Manager" />
-                        <TextBlock Grid.Column="3" Classes="orderHeaderText" Text="Region" />
-                        <TextBlock Grid.Column="4" Classes="orderHeaderText" Text="Status" />
-                        <TextBlock Grid.Column="5" Classes="orderHeaderText" Text="Items" />
-                        <TextBlock Grid.Column="6" Classes="orderHeaderText" Text="Net Amount" />
-                        <TextBlock Grid.Column="7" Classes="orderHeaderText" Text="Flag" />
+                        <Button Classes="orderHeaderButton" 
+                                Content="Order ID" 
+                                Command="{Binding SortCommand}"
+                                CommandParameter="{x:Static enums:OrdersSortField.OrderId}"/>
+                        <Button Grid.Column="1" 
+                                Classes="orderHeaderButton" 
+                                Content="Date" 
+                                Command="{Binding SortCommand}"
+                                CommandParameter="{x:Static enums:OrdersSortField.CreatedAt}"/>
+                        <Button Grid.Column="2" 
+                                Classes="orderHeaderButton" 
+                                Content="Manager" 
+                                Command="{Binding SortCommand}"
+                                CommandParameter="{x:Static enums:OrdersSortField.Manager}"/>
+                        <Button Grid.Column="3" 
+                                Classes="orderHeaderButton" 
+                                Content="Region" 
+                                Command="{Binding SortCommand}"
+                                CommandParameter="{x:Static enums:OrdersSortField.Region}"/>
+                        <Button Grid.Column="4" 
+                                Classes="orderHeaderButton" 
+                                Content="Status" 
+                                Command="{Binding SortCommand}"
+                                CommandParameter="{x:Static enums:OrdersSortField.Status}"/>
+                        <Button Grid.Column="5" 
+                                Classes="orderHeaderButton" 
+                                Content="Items" 
+                                Command="{Binding SortCommand}"
+                                CommandParameter="{x:Static enums:OrdersSortField.Quantity}"/>
+                        <Button Grid.Column="6" 
+                                Classes="orderHeaderButton" 
+                                Content="Net Amount" 
+                                Command="{Binding SortCommand}"
+                                CommandParameter="{x:Static enums:OrdersSortField.NetAmount}"/>
+                        <Button Grid.Column="7" 
+                                Classes="orderHeaderButton" 
+                                Content="Flag"/>
                     </Grid>
                 </Border>
             </Border>
 
-            <!-- Строки. -->
+            <!-- Строки таблицы заказов. -->
             <Border Grid.Row="1"
                     BorderBrush="{StaticResource _borderBrush}"
                     BorderThickness="1,0,1,1"
@@ -162,6 +198,7 @@
                 </Border>
         </Grid>
 
+        <!-- Количество отображаемых заказов. -->
         <TextBlock Grid.Row="2"
                    Height="20"
                    HorizontalAlignment="Left"

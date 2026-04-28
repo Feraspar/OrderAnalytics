@@ -36,11 +36,17 @@
     </Style>
 
     <!-- Стиль для заголовков. -->
-    <Style Selector="TextBlock.orderHeaderText">
-        <Setter Property="FontSize" Value="14" />
+    <Style Selector="Button.orderHeaderButton">
+		<Setter Property="Theme" Value="{StaticResource _flatButtonStyle}" />
         <Setter Property="FontWeight" Value="Medium" />
         <Setter Property="Foreground" Value="{StaticResource _secondaryTextBrush}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <!-- Стиль для заголовков при наведении. -->
+    <Style Selector="Button.orderHeaderButton:pointerover">
+        <Setter Property="Foreground" Value="{StaticResource _primaryTextBrush}" />
     </Style>
 
     <!-- Стиль для текстовых ячеек. -->
