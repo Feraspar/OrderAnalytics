@@ -1,8 +1,8 @@
 ﻿namespace OrderAnalytics.Presentation.Desktop.ViewModels
 {
-	using CommunityToolkit.Mvvm.ComponentModel;
+	using CommunityToolkit.Mvvm.Input;
 	using OrderAnalytics.Application.Services;
-	using OrderAnalytics.Domain.Entities;
+	using OrderAnalytics.Presentation.Desktop.Enums;
 	using System;
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
@@ -23,17 +23,25 @@
 		/// <inheritdoc <see cref="ImportDataService" />
 		private readonly ImportDataService _importDataService;
 
+		/// <summary>
+		/// Поле для хранения значения для сортировки.
+		/// </summary>
+		private OrdersSortField? _currentSortField;
+
+		/// <summary>
+		/// Поле для хранения булевого значения проблемных заказов.
+		/// </summary>
+		private bool _isOnlyProblematic;
+
+		/// <summary>
+		/// Поле для хранения булевого значения обратной сортировки.
+		/// </summary>
+		private bool _isSortDescending;
+
+		/// <summary>
+		/// Поле для хранения коллекции отображаемых заказов.
+		/// </summary>
 		private ObservableCollection<OrderRowViewModel> _orders;
-
-		/// <summary>
-		/// Поле для хранения общего числа заказов.
-		/// </summary>
-		private string _totalOrdersCount;
-
-		/// <summary>
-		/// Поле для хранения текущего числа заказов.
-		/// </summary>
-		private string _visibleOrdersCount;
 
 		/// <summary>
 		/// Поле для хранения текста поиска.
@@ -55,36 +63,32 @@
 		/// </summary>
 		private string? _selectedStatus;
 
-		private bool _isOnlyProblematic;
+		/// <summary>
+		/// Поле для хранения общего числа заказов.
+		/// </summary>
+		private string _totalOrdersCount;
+
+		/// <summary>
+		/// Поле для хранения текущего числа заказов.
+		/// </summary>
+		private string _visibleOrdersCount;
 
 		#endregion Private Fields
 
 		#region Public Properties
 
 		/// <summary>
-		/// Коллекция менеджеров.
+		/// Поле таблицы заказов для сортировки.
 		/// </summary>
-		public ObservableCollection<string> Managers { get; }
-
-		/// <summary>
-		/// Коллекция отображаемых заказов.
-		/// </summary>
-		public ObservableCollection<OrderRowViewModel> Orders
+		public OrdersSortField? CurrentSortField
 		{
-			get => _orders;
-			set => SetProperty(ref  _orders, value);
+			get => _currentSortField;
+			set => SetProperty(ref _currentSortField, value);
 		}
 
 		/// <summary>
-		/// Коллекция регионов.
+		/// Выбран ли фильтр только проблемных заказов.
 		/// </summary>
-		public ObservableCollection<string> Regions { get; }
-
-		/// <summary>
-		/// Коллекция статусов заказа.
-		/// </summary>
-		public ObservableCollection<string> Statuses { get; }
-
 		public bool IsOnlyProblematic
 		{
 			get => _isOnlyProblematic;
@@ -98,22 +102,32 @@
 		}
 
 		/// <summary>
-		/// Общее число заказов.
+		/// Идет ли сортировка по убыванию.
 		/// </summary>
-		public string TotalOrdersCount
+		public bool IsSortDescending
 		{
-			get => _totalOrdersCount;
-			set => SetProperty(ref _totalOrdersCount, value);
+			get => _isSortDescending;
+			set => SetProperty(ref _isSortDescending, value);
 		}
 
 		/// <summary>
-		/// Текущее число заказов.
+		/// Коллекция менеджеров.
 		/// </summary>
-		public string VisibleOrdersCount
+		public ObservableCollection<string> Managers { get; }
+
+		/// <summary>
+		/// Коллекция отображаемых заказов.
+		/// </summary>
+		public ObservableCollection<OrderRowViewModel> Orders
 		{
-			get => _visibleOrdersCount;
-			set => SetProperty(ref _visibleOrdersCount, value);
+			get => _orders;
+			set => SetProperty(ref _orders, value);
 		}
+
+		/// <summary>
+		/// Коллекция регионов.
+		/// </summary>
+		public ObservableCollection<string> Regions { get; }
 
 		/// <summary>
 		/// Текст поиска заказа по Id.
@@ -131,14 +145,14 @@
 		}
 
 		/// <summary>
-		/// Выбранный статус заказа.
+		/// Выбранный менеджер.
 		/// </summary>
-		public string? SelectedStatus
+		public string? SelectedManager
 		{
-			get => _selectedStatus;
+			get => _selectedManager;
 			set
 			{
-				if (SetProperty(ref _selectedStatus, value))
+				if (SetProperty(ref _selectedManager, value))
 				{
 					ApplyFilters();
 				}
@@ -161,18 +175,46 @@
 		}
 
 		/// <summary>
-		/// Выбранный менеджер.
+		/// Выбранный статус заказа.
 		/// </summary>
-		public string? SelectedManager
+		public string? SelectedStatus
 		{
-			get => _selectedManager;
+			get => _selectedStatus;
 			set
 			{
-				if (SetProperty(ref _selectedManager, value))
+				if (SetProperty(ref _selectedStatus, value))
 				{
 					ApplyFilters();
 				}
 			}
+		}
+
+		/// <summary>
+		/// Команда сортировки.
+		/// </summary>
+		public IRelayCommand<OrdersSortField> SortCommand { get; }
+
+		/// <summary>
+		/// Коллекция статусов заказа.
+		/// </summary>
+		public ObservableCollection<string> Statuses { get; }
+
+		/// <summary>
+		/// Общее число заказов.
+		/// </summary>
+		public string TotalOrdersCount
+		{
+			get => _totalOrdersCount;
+			set => SetProperty(ref _totalOrdersCount, value);
+		}
+
+		/// <summary>
+		/// Текущее число заказов.
+		/// </summary>
+		public string VisibleOrdersCount
+		{
+			get => _visibleOrdersCount;
+			set => SetProperty(ref _visibleOrdersCount, value);
 		}
 
 		#endregion Public Properties
@@ -194,6 +236,8 @@
 			Regions = new ObservableCollection<string>();
 			Managers = new ObservableCollection<string>();
 
+			SortCommand = new RelayCommand<OrdersSortField>(Sort);
+
 			FillFilterCollections();
 
 			VisibleOrdersCount = Orders.Count.ToString();
@@ -203,30 +247,6 @@
 		#endregion Public Constructors
 
 		#region Private Methods
-
-		/// <summary>
-		/// Заполняет коллекции фильтров данными.
-		/// </summary>
-		private void FillFilterCollections()
-		{
-			Statuses.Add("All");
-			foreach (string status in _allOrders.Select(x => x.Status).Distinct().OrderBy(x => x))
-			{
-				Statuses.Add(status);
-			}
-
-			Regions.Add("All");
-			foreach (string status in _allOrders.Select(x => x.Region).Distinct().OrderBy(x => x))
-			{
-				Regions.Add(status);
-			}
-
-			Managers.Add("All");
-			foreach (string status in _allOrders.Select(x => x.Manager).Distinct().OrderBy(x => x))
-			{
-				Managers.Add(status);
-			}
-		}
 
 		/// <summary>
 		/// Применяет фильтры.
@@ -260,9 +280,94 @@
 				query = query.Where(x => x.IsProblematic);
 			}
 
+			query = ApplySorting(query);
+
 			Orders = new ObservableCollection<OrderRowViewModel>(query);
 
 			VisibleOrdersCount = Orders.Count.ToString();
+		}
+
+		/// <summary>
+		/// Сортирует заказы.
+		/// </summary>
+		/// <param name="query">Коллекция заказов.</param>
+		/// <returns>Коллекция заказов.</returns>
+		private IEnumerable<OrderRowViewModel> ApplySorting(IEnumerable<OrderRowViewModel> query)
+		{
+			if (CurrentSortField is null)
+			{
+				return query;
+			}
+
+			switch (CurrentSortField)
+			{
+				case OrdersSortField.OrderId:
+					return IsSortDescending ? query.OrderByDescending(x => x.OrderId) : query.OrderBy(x => x.OrderId);
+
+				case OrdersSortField.CreatedAt:
+					return IsSortDescending ? query.OrderByDescending(x => x.CreatedAt) : query.OrderBy(x => x.CreatedAt);
+
+				case OrdersSortField.Manager:
+					return IsSortDescending ? query.OrderByDescending(x => x.Manager) : query.OrderBy(x => x.Manager);
+
+				case OrdersSortField.Region:
+					return IsSortDescending ? query.OrderByDescending(x => x.Region) : query.OrderBy(x => x.Region);
+
+				case OrdersSortField.Status:
+					return IsSortDescending ? query.OrderByDescending(x => x.Status) : query.OrderBy(x => x.Status);
+
+				case OrdersSortField.Quantity:
+					return IsSortDescending ? query.OrderByDescending(x => x.Quantity) : query.OrderBy(x => x.Quantity);
+
+				case OrdersSortField.NetAmount:
+					return IsSortDescending ? query.OrderByDescending(x => x.NetAmount) : query.OrderBy(x => x.NetAmount);
+
+				default:
+					return query;
+			}
+		}
+
+		/// <summary>
+		/// Заполняет коллекции фильтров данными.
+		/// </summary>
+		private void FillFilterCollections()
+		{
+			Statuses.Add("All");
+			foreach (string status in _allOrders.Select(x => x.Status).Distinct().OrderBy(x => x))
+			{
+				Statuses.Add(status);
+			}
+
+			Regions.Add("All");
+			foreach (string status in _allOrders.Select(x => x.Region).Distinct().OrderBy(x => x))
+			{
+				Regions.Add(status);
+			}
+
+			Managers.Add("All");
+			foreach (string status in _allOrders.Select(x => x.Manager).Distinct().OrderBy(x => x))
+			{
+				Managers.Add(status);
+			}
+		}
+
+		/// <summary>
+		/// Вызывает сортировку.
+		/// </summary>
+		/// <param name="field">Поле таблицы для сортировки.</param>
+		private void Sort(OrdersSortField field)
+		{
+			if (CurrentSortField == field)
+			{
+				IsSortDescending = !IsSortDescending;
+			}
+			else
+			{
+				CurrentSortField = field;
+				IsSortDescending = false;
+			}
+
+			ApplyFilters();
 		}
 
 		#endregion Private Methods
