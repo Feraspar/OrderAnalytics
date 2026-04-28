@@ -3,6 +3,7 @@
 	using OrderAnalytics.Application.Services;
 	using OrderAnalytics.Domain.Entities;
 	using System.Collections.ObjectModel;
+	using System.Linq;
 
 	/// <summary>
 	/// Модель представления страницы заказов.
@@ -21,7 +22,7 @@
 		/// <summary>
 		/// Коллекция для хранения заказов.
 		/// </summary>
-		public ObservableCollection<Order> Orders { get; }
+		public ObservableCollection<OrderRowViewModel> Orders { get; }
 
 		#endregion Public Properties
 
@@ -34,7 +35,7 @@
 		public OrdersViewModel(ImportDataService importDataService)
 		{
 			_importDataService = importDataService;
-			Orders = new ObservableCollection<Order>(_importDataService.Orders);
+			Orders = new ObservableCollection<OrderRowViewModel>(_importDataService.Orders.Select(order => new OrderRowViewModel(order)));
 		}
 
 		#endregion Public Constructors
