@@ -24,4 +24,7 @@
 
     <!-- Иконка проблемного заказа. -->
     <Bitmap x:Key="ProblematicIcon">avares://OrderAnalytics.Presentation.Desktop/Assets/Icons/problematic_icon.png</Bitmap>
+
+    <!-- Иконка поиска. -->
+    <Bitmap x:Key="SearchIcon">avares://OrderAnalytics.Presentation.Desktop/Assets/Icons/search_icon.png</Bitmap>
 </ResourceDictionary>

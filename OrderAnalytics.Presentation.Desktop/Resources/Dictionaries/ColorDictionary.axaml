@@ -13,6 +13,12 @@
     <!-- Цвет фона с контентом. -->
     <SolidColorBrush x:Key="_contentBackgroundBrush">#FAFAFA</SolidColorBrush>
 
+    <!-- Цвет рамки при взаимодействии. -->
+    <SolidColorBrush x:Key="_focusBackgroundBorderBrush">#0066CC</SolidColorBrush>
+
+    <!-- Цвет рамки чекбокса. -->
+    <SolidColorBrush x:Key="_checkBoxBorderBrush">#F5F5F5</SolidColorBrush>
+
     <!-- Цвет рамки выбранного навигационного окна. -->
     <SolidColorBrush x:Key="_navItemSelectedBrush">#EFF6FF</SolidColorBrush>
 

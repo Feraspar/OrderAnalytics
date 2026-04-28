@@ -1,98 +1,112 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-     <Style Selector="Border.orderRow">
-            <Setter Property="Background" Value="{StaticResource _backgroundBrush}" />
-            <Setter Property="BorderBrush" Value="{StaticResource _borderBrush}" />
-            <Setter Property="BorderThickness" Value="0,0,0,1" />
-            <Setter Property="Padding" Value="16,0" />
-            <Setter Property="Height" Value="45" />
-        </Style>
+    <!-- Стиль для рамки обычной строки. -->
+    <Style Selector="Border.orderRow">
+        <Setter Property="Background" Value="{StaticResource _backgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource _borderBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="Padding" Value="16,0" />
+        <Setter Property="Height" Value="45" />
+    </Style>
 
-        <Style Selector="Border.orderRow.problematic">
-            <Setter Property="Background" Value="{StaticResource _problematicBorderStyle}" />
-        </Style>
+    <!-- Стиль для рамки проблемной строки. -->
+    <Style Selector="Border.orderRow.problematic">
+        <Setter Property="Background" Value="{StaticResource _problematicBorderStyle}" />
+    </Style>
 
-        <Style Selector="ListBoxItem:selected Border.orderRow">
-            <Setter Property="Background" Value="{StaticResource _selectedcBorderStyle}" />
-        </Style>
+    <!-- Стиль для выбранной строки. -->
+    <Style Selector="ListBoxItem:selected Border.orderRow">
+        <Setter Property="Background" Value="{StaticResource _selectedcBorderStyle}" />
+    </Style>
 
-        <Style Selector="ListBox.ordersList">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderThickness" Value="0" />
-        </Style>
+    <!-- Стиль ListBox. -->
+    <Style Selector="ListBox.ordersList">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
 
-        <Style Selector="ListBox.ordersList ListBoxItem">
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="Margin" Value="0" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        </Style>
+    <!-- Стиль для элементов ListBox. -->
+    <Style Selector="ListBox.ordersList ListBoxItem">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
 
-        <Style Selector="ListBox.ordersList ListBoxItem:pointerover">
-            <Setter Property="Background" Value="Transparent" />
-        </Style>
+    <!-- Стиль для заголовков. -->
+    <Style Selector="TextBlock.orderHeaderText">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Foreground" Value="{StaticResource _secondaryTextBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
 
-        <Style Selector="TextBlock.orderHeaderText">
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="FontWeight" Value="Medium" />
-            <Setter Property="Foreground" Value="{StaticResource _secondaryTextBrush}" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
+    <!-- Стиль для текстовых ячеек. -->
+    <Style Selector="TextBlock.orderCellText">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Foreground" Value="{StaticResource _primaryTextBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
 
-        <Style Selector="TextBlock.orderCellText">
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Foreground" Value="{StaticResource _primaryTextBrush}" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
+    <!-- Стиль для ячейки с Id. -->
+    <Style Selector="TextBlock.orderCellText.orderIdCellText">
+        <Setter Property="FontWeight" Value="Medium" />
+    </Style>
 
-        <Style Selector="TextBlock.orderCellText.orderIdCellText">
-            <Setter Property="FontWeight" Value="Medium" />
-        </Style>
+    <!-- Стиль для рамки бейджа статуса. -->
+    <Style Selector="Border.statusBadge">
+        <Setter Property="Padding" Value="8,4" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
 
-        <Style Selector="Border.statusBadge">
-            <Setter Property="Padding" Value="8,4" />
-            <Setter Property="CornerRadius" Value="4" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
+    <!-- Стиль для рамки бейджа статуса "Completed". -->
+    <Style Selector="Border.statusBadge.completed">
+        <Setter Property="Background" Value="{StaticResource _completedBadgeBorderStyle}" />
+    </Style>
 
-        <Style Selector="Border.statusBadge.completed">
-            <Setter Property="Background" Value="{StaticResource _completedBadgeBorderStyle}" />
-        </Style>
+     <!-- Стиль для рамки бейджа статуса "Processing". -->
+    <Style Selector="Border.statusBadge.processing">
+        <Setter Property="Background" Value="{StaticResource _processingBadgeBorderStyle}" />
+    </Style>
 
-        <Style Selector="Border.statusBadge.processing">
-            <Setter Property="Background" Value="{StaticResource _processingBadgeBorderStyle}" />
-        </Style>
+     <!-- Стиль для рамки бейджа статуса "Pending". -->
+    <Style Selector="Border.statusBadge.pending">
+        <Setter Property="Background" Value="{StaticResource _pendingBadgeBorderStyle}" />
+    </Style>
 
-        <Style Selector="Border.statusBadge.pending">
-            <Setter Property="Background" Value="{StaticResource _pendingBadgeBorderStyle}" />
-        </Style>
+     <!-- Стиль для рамки бейджа статуса "Failed". -->
+    <Style Selector="Border.statusBadge.failed">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    
+     <!-- Стиль для текста бейджа статуса. -->
+    <Style Selector="TextBlock.statusText">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
 
-        <Style Selector="Border.statusBadge.failed">
-            <Setter Property="Background" Value="Transparent" />
-        </Style>
+    <!-- Стиль для текста бейджа статуса "Completed". -->
+    <Style Selector="TextBlock.statusText.completed">
+        <Setter Property="Foreground" Value="{StaticResource _completedBadgeTextStyle}" />
+    </Style>
 
-        <Style Selector="TextBlock.statusText">
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="FontWeight" Value="Medium" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
+    <!-- Стиль для текста бейджа статуса "Processing". -->
+    <Style Selector="TextBlock.statusText.processing">
+        <Setter Property="Foreground" Value="{StaticResource _processingBadgeTextStyle}" />
+    </Style>
 
-        <Style Selector="TextBlock.statusText.completed">
-            <Setter Property="Foreground" Value="{StaticResource _completedBadgeTextStyle}" />
-        </Style>
+    <!-- Стиль для текста бейджа статуса "Pending". -->
+    <Style Selector="TextBlock.statusText.pending">
+        <Setter Property="Foreground" Value="{StaticResource _pendingBadgeTextStyle}" />
+    </Style>
 
-        <Style Selector="TextBlock.statusText.processing">
-            <Setter Property="Foreground" Value="{StaticResource _processingBadgeTextStyle}" />
-        </Style>
-
-        <Style Selector="TextBlock.statusText.pending">
-            <Setter Property="Foreground" Value="{StaticResource _pendingBadgeTextStyle}" />
-        </Style>
-
-        <Style Selector="TextBlock.statusText.failed">
-            <Setter Property="Foreground" Value="{StaticResource _errorBadgeTextStyle}" />
-        </Style>
+    <!-- Стиль для текста бейджа статуса "Failed". -->
+    <Style Selector="TextBlock.statusText.failed">
+        <Setter Property="Foreground" Value="{StaticResource _errorBadgeTextStyle}" />
+    </Style>
 </Styles>
