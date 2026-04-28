@@ -20,5 +20,6 @@
         <StyleInclude Source="avares://OrderAnalytics.Presentation.Desktop/Resources/Styles/ButtonStyles.axaml" />
         <StyleInclude Source="avares://OrderAnalytics.Presentation.Desktop/Resources/Styles/NavigationStyles.axaml" />
         <StyleInclude Source="avares://OrderAnalytics.Presentation.Desktop/Resources/Styles/TableRowsStyles.axaml" />
+        <StyleInclude Source="avares://OrderAnalytics.Presentation.Desktop/Resources/Styles/InputStyles.axaml" />
     </Application.Styles>
 </Application>

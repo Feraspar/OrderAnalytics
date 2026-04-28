@@ -15,6 +15,58 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <Grid ColumnDefinitions="2.2*,*,*,*,*,3*"
+              ColumnSpacing="12">
+
+            <Grid>
+                <TextBox
+                    Classes="searchTextBox"
+                    PlaceholderText="Search orders..." 
+                    Text="{Binding SearchOrderId, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Image
+                    Source="{StaticResource SearchIcon}"
+                    Width="16"
+                    Margin="14,0,0,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    IsHitTestVisible="False" />
+            </Grid>
+
+            <ComboBox Classes="filterComboBox" 
+                      Grid.Column="1"
+                      Height="42"
+                      HorizontalAlignment="Stretch" 
+                      ItemsSource="{Binding Statuses}"
+                      SelectedItem="{Binding SelectedStatus}"/>
+
+            <ComboBox Classes="filterComboBox" 
+                      Grid.Column="2"
+                      Height="42"
+                      HorizontalAlignment="Stretch" 
+                      ItemsSource="{Binding Regions}"
+                      SelectedItem="{Binding SelectedRegion}"/>
+
+            <ComboBox Classes="filterComboBox" 
+                      Grid.Column="3"
+                      Height="42"
+                      HorizontalAlignment="Stretch" 
+                      ItemsSource="{Binding Managers}"
+                      SelectedItem="{Binding SelectedManager}"/>
+
+            <Border Grid.Column="4" 
+                    Background="{StaticResource _checkBoxBorderBrush}" 
+                    CornerRadius="6"
+                    Padding="11"
+                    Height="42">
+                <CheckBox Content="Only problematic" 
+                          FontSize="14" 
+                          FontWeight="Medium"
+                          Foreground="{StaticResource _primaryTextBrush}"
+                          IsChecked="{Binding IsOnlyProblematic}"/>
+            </Border>
+        </Grid>
+
 		<Grid Grid.Row="1">
             <Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
@@ -115,12 +167,12 @@
                    HorizontalAlignment="Left"
                    FontSize="14"
                    Foreground="{StaticResource _secondaryTextBrush}">
-				<TextBlock.Text>
-					<MultiBinding StringFormat="Showing {0} of {1} orders">
-						<Binding Path="VisibleOrdersCount" />
-                        <Binding Path="TotalOrdersCount" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
+			<TextBlock.Text>
+				<MultiBinding StringFormat="Showing {0} of {1} orders">
+					<Binding Path="VisibleOrdersCount" />
+                    <Binding Path="TotalOrdersCount" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
     </Grid>
 </UserControl>
