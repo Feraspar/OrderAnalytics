@@ -3,14 +3,169 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:OrderAnalytics.Presentation.Desktop.ViewModels"
+             xmlns:converters="using:OrderAnalytics.Presentation.Desktop.Converters"
+             xmlns:controls="using:OrderAnalytics.Presentation.Desktop"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:ErrorsViewModel"
              x:Class="OrderAnalytics.Presentation.Desktop.ErrorsView">
 
-    <Grid>
-        <TextBlock Text="Errors page"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="24"/>
+    <UserControl.Resources>
+		<converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+    </UserControl.Resources>
+
+    <Grid RowSpacing="16" Margin="24,24,24,51">
+        <Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid ColumnDefinitions="3.3*,*,6*"
+              ColumnSpacing="12">
+
+            <Grid>
+			    <!-- Строка поиска. -->
+                <TextBox
+                    Classes="searchTextBox"
+                    PlaceholderText="Search errors..." 
+                    Text="{Binding SearchErrorMessage, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Image
+                    Source="{StaticResource SearchIcon}"
+                    Width="16"
+                    Margin="12,0,0,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    IsHitTestVisible="False" />
+            </Grid>
+
+            <!-- Фильтр по типу ошибки. -->
+            <ComboBox Classes="filterComboBox" 
+                      Grid.Column="1"
+                      Height="42"
+                      HorizontalAlignment="Stretch" 
+                      ItemsSource="{Binding Severities}"
+                      SelectedItem="{Binding SelectedSeverity}"/>
+        </Grid>
+
+        <Grid Grid.Row="1" 
+              ColumnDefinitions="*,1.4*,18*"
+              ColumnSpacing="12">
+
+            <Border Background="{StaticResource _redErrorBackgroundBrush}" 
+                    CornerRadius="6"
+                    BorderBrush="{StaticResource _redErrorBrush}" 
+                    BorderThickness="1"
+                    Height="78">
+				<StackPanel HorizontalAlignment="Center">
+					<TextBlock Margin="17,13,13,0" 
+                               Foreground="{StaticResource _secondaryTextBrush}"
+                               FontSize="14"
+                               Text="Errors"/>
+
+                    <TextBlock Margin="17,6,13,0" 
+                               Foreground="{StaticResource _redErrorBrush}"
+                               FontSize="20"
+                               FontWeight="Medium"
+                               Text="{Binding ErrorsCount}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" 
+                    Background="{StaticResource _warningBackgroundBrush}" 
+                    CornerRadius="6"
+                    BorderBrush="{StaticResource _warningBrush}" 
+                    BorderThickness="1"
+                    Height="78">
+				<StackPanel HorizontalAlignment="Center">
+					<TextBlock Margin="17,13,13,0" 
+                               Foreground="{StaticResource _secondaryTextBrush}"
+                               FontSize="14"
+                               Text="Warnings"/>
+
+                    <TextBlock Margin="17,6,13,0" 
+                               Foreground="{StaticResource _redErrorBrush}"
+                               FontSize="20"
+                               FontWeight="Medium"
+                               Text="{Binding WarningsCount}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="2" IsVisible="{Binding HasErrors}">
+            <Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Шапка таблицы ошибок. -->
+            <Border BorderBrush="{StaticResource _borderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="6,6,0,0"
+                    Background="{StaticResource _contentBackgroundBrush}">
+                <Border BorderBrush="Black"
+                        BorderThickness="0,0,0,1">
+	                <Grid ColumnDefinitions="1*,1.5*,1.5*,2*,1.5*"
+                            Height="42"
+                            Margin="16,0">
+                        <TextBlock Classes="tableHeaderText" Text="Line"/>
+                        <TextBlock Grid.Column="1" Classes="tableHeaderText" Text="Order ID"/>
+                        <TextBlock Grid.Column="2" Classes="tableHeaderText" Text="Field"/>
+                        <TextBlock Grid.Column="3" Classes="tableHeaderText" Text="Message"/>
+                        <TextBlock Grid.Column="4" Classes="tableHeaderText" Text="Severity"/>
+                    </Grid>
+                </Border>
+            </Border>
+
+            <!-- Строки таблицы ошибок. -->
+            <Border Grid.Row="1"
+                    BorderBrush="{StaticResource _borderBrush}"
+                    BorderThickness="1,0,1,1"
+                    CornerRadius="0,0,6,6"
+                    Background="{StaticResource _backgroundBrush}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListBox Classes="tableList" ItemsSource="{Binding Errors}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Classes="tableRow">
+                                    <Grid ColumnDefinitions="1*,1.5*,1.5*,2*,1.5*">
+
+                                        <TextBlock Classes="tableCellText tableMediumCellText"
+                                                   Text="{Binding LineNumber}" />
+
+                                        <TextBlock Grid.Column="1"
+                                                   Classes="tableCellText tableMediumCellText"
+                                                   Text="{Binding OrderId}" />
+
+                                        <TextBlock Grid.Column="2"
+                                                   Classes="tableCellText"
+                                                   Text="{Binding Field}" />
+
+                                        <TextBlock Grid.Column="3"
+                                                   Classes="tableCellText"
+                                                   Text="{Binding Message}" />
+
+                                        <Border Grid.Column="4"
+                                                Classes="statusBadge"
+                                                Classes.error="{Binding IsError}"
+                                                Classes.warning="{Binding IsWarning}">
+                                            <TextBlock Classes="statusText"
+                                                       Classes.error="{Binding IsError}"
+                                                       Classes.warning="{Binding IsWarning}"
+                                                       Text="{Binding ErrorSeverity}" />
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- Нет данных. -->
+        <Grid Grid.Row="2">
+		   <controls:EmptyStateView VerticalAlignment="Top" IsVisible="{Binding HasErrors, Converter={StaticResource InverseBooleanConverter}}"/>
+        </Grid>
     </Grid>
 </UserControl>

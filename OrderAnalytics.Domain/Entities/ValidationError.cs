@@ -34,6 +34,9 @@
 		/// </summary>
 		public string OrderId { get; }
 
+		public bool IsError => ErrorSeverity == ErrorSeverity.Error;
+		public bool IsWarning => ErrorSeverity == ErrorSeverity.Warning;
+
 		#endregion Public Properties
 
 		#region Public Constructors
