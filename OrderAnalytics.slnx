@@ -3,4 +3,5 @@
   <Project Path="OrderAnalytics.Domain/OrderAnalytics.Domain.csproj" />
   <Project Path="OrderAnalytics.Infrastructure/OrderAnalytics.Infrastructure.csproj" />
   <Project Path="OrderAnalytics.Presentation.Desktop/OrderAnalytics.Presentation.Desktop.csproj" />
+  <Project Path="OrderAnalytics.Tests/OrderAnalytics.Tests.csproj" Id="8a0a4cb1-1113-46fe-8191-51243bfac35d" />
 </Solution>
