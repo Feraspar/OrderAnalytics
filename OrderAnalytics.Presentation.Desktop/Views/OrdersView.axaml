@@ -24,7 +24,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-			<Grid ColumnDefinitions="2.2*,*,*,*,*,3*"
+			<Grid ColumnDefinitions="2.2*,1.4*,1.4*,1.4*,2.5*,2*"
               ColumnSpacing="12">
 
                 <Grid>
