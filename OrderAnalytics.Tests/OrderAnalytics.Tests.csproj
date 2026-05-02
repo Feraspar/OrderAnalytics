@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OrderAnalytics.Domain\OrderAnalytics.Domain.csproj" />
+    <ProjectReference Include="..\OrderAnalytics.Infrastructure\OrderAnalytics.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
